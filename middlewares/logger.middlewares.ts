@@ -1,8 +1,8 @@
 import { Injectable, Logger, NestMiddleware } from "@nestjs/common";
 import { Request, Response, NextFunction } from "express";
 
-@Injectable()
-export class LoggerMiddleware implements NestMiddleware{
+@Injectable() // dependency injection
+export class LoggerMiddleware implements NestMiddleware{ // implements 사용이유 : 솔직히 없어도 돌아가긴 하지만 써주면 에디터랑 ts에서 잘못된거 잡아줄거 잡아줌.
     private logger = new Logger('HTTP'); 
 
     use(request:Request, response:Response, next:NextFunction):void{
