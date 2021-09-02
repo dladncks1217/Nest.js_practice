@@ -1,14 +1,18 @@
 // controller에서는 최대한 req,res같은거안쓰는게 좋음.
 import { Controller, Post, Get, Req, Res, Body } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UserDTO } from 'src/common/dto/user.dto';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
+@ApiTags('DM')
 @Controller('api/users')
 export class UsersController {
-    constructor(private userService: UsersService){
+    constructor(private userService: UsersService){}
 
-    }
+    @ApiResponse({
+        type:UserDTO
+    })
     @ApiOperation({summary:'내 정보 조회'})
     @Get()
     getUsers(@Req() req){
@@ -21,6 +25,15 @@ export class UsersController {
         this.userService.postUsers(body.email, body.nickname, body.password);
     }
 
+    @ApiResponse({
+        status:200,
+        description:'성공',
+        type:UserDTO
+    })
+    @ApiResponse({
+        status:500,
+        description:'서버 에러',
+    })
     @ApiOperation({summary:'로그인'})
     @Post('login')
     logIn(@Req() req){
