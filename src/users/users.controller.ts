@@ -1,11 +1,13 @@
 // controller에서는 최대한 req,res같은거안쓰는게 좋음.
-import { Controller, Post, Get, Req, Res, Body } from '@nestjs/common';
+import { Controller, Post, Get, Req, Res, Body, UseInterceptors } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/common/decorators/user.decorator';
 import { UserDTO } from 'src/common/dto/user.dto';
+import { UndefinedToNullInterceptor } from 'src/common/interceptors/undefinedToNull.interceptor';
 import { JoinRequestDto } from './dto/join.request.dto';
 import { UsersService } from './users.service';
 
+@UseInterceptors(UndefinedToNullInterceptor)
 @ApiTags('USER')
 @Controller('api/users')
 export class UsersController {
