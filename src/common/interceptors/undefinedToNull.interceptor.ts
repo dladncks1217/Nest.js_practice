@@ -3,6 +3,7 @@
 // 그걸 묶어보자 하는게 인터셉터의 역할 
 // nest기능중 하나인 인터셉터로 구현해보자.
 // express에서 res.json같은거로 리턴해주고 나면 그 값을 다시한번 가공해주고싶은 경우가 있음(express에서는 좀 애매함) 이걸 인터셉터로 해결 가능.
+// 컨트롤러 앞과 뒤로 끼어들어서 이름이 인터셉터임.
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -15,7 +16,9 @@ export class UndefinedToNullInterceptor implements NestInterceptor{
         next: CallHandler<any>
     ):Observable<any> | Promise<Observable<any>>{
         // 컨트롤러 실행 전 부분 
+        // 전 부분은 로깅같은 것 할때 시간 초 재는 역할로 써먹을 수 있을듯
         return next.handle().pipe(map((data)=>((data)=>data===undefined?null:data))); // data : 컨트롤러가 리턴해주는 데이터
+        // json의 경우 undefined는 인식못하고 null만 인식함
     }
 }
 
