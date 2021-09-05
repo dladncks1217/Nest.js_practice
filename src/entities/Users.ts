@@ -48,7 +48,7 @@ import {
     @OneToMany(() => ChannelMembers, (channelmembers) => channelmembers.User)
     ChannelMembers: ChannelMembers[];
   
-    @OneToMany(() => DMs, (dms) => dms.Sender)
+    @OneToMany(() => DMs, (dms) => dms.Sender) // 1대다관계 연속 2번
     DMs: DMs[];
   
     @OneToMany(() => DMs, (dms) => dms.Receiver)
@@ -69,7 +69,7 @@ import {
     @OneToMany(() => Workspaces, (workspaces) => workspaces.Owner)
     OwnedWorkspaces: Workspaces[];
   
-    @ManyToMany(() => Workspaces, (workspaces) => workspaces.Members)
+    @ManyToMany(() => Workspaces, (workspaces) => workspaces.Members) // ManyToMany는 OneToMany와 다르게 컬럼이 아닌(Join컬럼) 테이블을(Join테이블) 넣어줌. 조인테이블의 경우 아무데나 넣어도 상관없음
     @JoinTable({
       name: 'workspacemembers',
       joinColumn: {
