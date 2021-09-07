@@ -67,6 +67,6 @@ import {
     @JoinColumn([{ name: 'OwnerId', referencedColumnName: 'id' }]) // JoinColumn의 경우 양쪽 관계가 있다면 ForeignKey가 있는 곳에 하자.
     Owner: Users;
   
-    @ManyToMany(() => Users, (users) => users.Workspaces) // ManyToMany 버그 자주나는데 OneToMany 두개로 가능
+    @ManyToMany(() => Users, (users) => users.Workspaces) // ManyToMany 버그 자주나는데 만약 안되면 OneToMany 두개로 해결 가능
     Members: Users[];
   }
