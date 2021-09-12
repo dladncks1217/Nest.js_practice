@@ -24,8 +24,8 @@ export class UsersController {
 
     @ApiOperation({summary:'회원가입'}) // 컨트롤러 자체를 탐지해 swagger를 만들어주는데, 거기에 세부적인 사항들은 직접 제작해야함.
     @Post()
-    postUsers(@Body() body:JoinRequestDto){ // JoinRequestDto가 들어간다는건 nest가 판단했지만 그게 자세히 뭔지는 모름 이건 설정해줘야함. (join.request.dto.ts로 가서 지정해주자.)
-        this.userService.postUsers(body.email, body.nickname, body.password);
+    join(@Body() body:JoinRequestDto){ // JoinRequestDto가 들어간다는건 nest가 판단했지만 그게 자세히 뭔지는 모름 이건 설정해줘야함. (join.request.dto.ts로 가서 지정해주자.)
+        this.userService.join(body.email, body.nickname, body.password);
     }
 
     @ApiResponse({

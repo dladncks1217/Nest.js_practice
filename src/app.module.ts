@@ -12,6 +12,7 @@ import { WorkspacesController } from './workspaces/workspaces.controller';
 import { UsersService } from './users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import *as ormconfig from '../ormconfig';
+import { Users } from './entities/Users';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import *as ormconfig from '../ormconfig';
     ChannelsModule, 
     DmsModule,
     WorkspacesModule, 
-    TypeOrmModule.forRoot(ormconfig)
+    TypeOrmModule.forRoot(ormconfig),
+    TypeOrmModule.forFeature([Users])
   ], // forRoot같은거 있는거는 설정할수있는 그런것들
   controllers: [
     AppController, 
