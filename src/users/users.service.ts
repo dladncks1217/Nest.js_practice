@@ -13,8 +13,13 @@ export class UsersService {
     ){}
     async join(email:string, nickname:string, password:string){
         if(!email){
-            // 이메일 없음 오류
             throw new HttpException('이메일이 없습니다.', 400); // async함수 내에서는 throw해도 서버가 종료되지 않음.
+            // 이메일 없음 오류
+            // async에서는 throw하면 예외가 삼켜짐(에러가 아니라 Unhandled~~~ 경고로 뜸.)
+            // 따라서 응답으로 오류 메시지를 받지 못하는 효과가 나버림. 이를 막기 위해 컨트롤러에서 await을 해줘야 제대로 돌아감.
+            // 얘는 꺼짐.
+            // 서비스 전과 후로 실행되는 인터셉터로 해결 가능하긴 할지도...?
+            // 그래도 있는 예외처리 전문 Exception을 사용하자. 
             return;
         }
         if(!nickname){

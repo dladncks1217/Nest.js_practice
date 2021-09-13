@@ -4,12 +4,14 @@ import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './httpException.filter';
 
 declare const module: any;
 
 async function bootstrap(){
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT || 3000;
+  app.useGlobalFilters(new HttpExceptionFilter); // 모든 컨트롤러에서 발생하는 HttpException을 얘가 걸러줄거임.
 
   const config = new DocumentBuilder()
   .setTitle('Sleact API')

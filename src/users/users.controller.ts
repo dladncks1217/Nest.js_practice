@@ -24,8 +24,9 @@ export class UsersController {
 
     @ApiOperation({summary:'회원가입'}) // 컨트롤러 자체를 탐지해 swagger를 만들어주는데, 거기에 세부적인 사항들은 직접 제작해야함.
     @Post()
-    join(@Body() body:JoinRequestDto){ // JoinRequestDto가 들어간다는건 nest가 판단했지만 그게 자세히 뭔지는 모름 이건 설정해줘야함. (join.request.dto.ts로 가서 지정해주자.)
-        this.userService.join(body.email, body.nickname, body.password);
+    async join(@Body() body:JoinRequestDto){ // JoinRequestDto가 들어간다는건 nest가 판단했지만 그게 자세히 뭔지는 모름 이건 설정해줘야함. (join.request.dto.ts로 가서 지정해주자.)
+        await this.userService.join(body.email, body.nickname, body.password);
+        // 서비스에서 발생한 오류가 컨트롤러로 전파가 되어야 httpException.fitler.ts에 걸려서 응답이 갈 수 있음.
     }
 
     @ApiResponse({
