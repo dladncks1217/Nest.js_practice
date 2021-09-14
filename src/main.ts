@@ -5,12 +5,14 @@ import passport from 'passport';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './httpException.filter';
+import { ValidationPipe } from '@nestjs/common';
 
 declare const module: any;
 
 async function bootstrap(){
   const app = await NestFactory.create(AppModule);
   const port = process.env.PORT || 3000;
+  app.useGlobalPipes(new ValidationPipe()); // httpException.filter.ts 통해 에러메시지 변경 가능
   app.useGlobalFilters(new HttpExceptionFilter); // 모든 컨트롤러에서 발생하는 HttpException을 얘가 걸러줄거임.
 
   const config = new DocumentBuilder()

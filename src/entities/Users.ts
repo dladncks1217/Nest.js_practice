@@ -18,7 +18,9 @@ import {
   import { Mentions } from './Mentions';
   import { WorkspaceMembers } from './WorkspaceMembers';
   import { Workspaces } from './Workspaces';
-  
+  import { IsEmail, IsString, IsNotEmpty } from 'class-validator';    
+  // validation 사용 위해서는 validationPipe 지정해야함.(Main.ts 지정해주자.)
+
   @Index('email', ['email'], { unique: true })
   @Entity({ schema: 'sleact', name: 'users' })
   export class Users {
@@ -29,6 +31,8 @@ import {
     @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
     id: number;
   
+    @IsEmail()
+    @IsNotEmpty()
     @ApiProperty({
       example:'dlaxodud1217@gmail.com',
       description:'이메일',
@@ -36,6 +40,8 @@ import {
     @Column('varchar', { name: 'email', unique: true, length: 30 })
     email: string;
   
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty({
       example:'새로운 닉네임',
       description:'닉네임',
@@ -43,6 +49,9 @@ import {
     @Column('varchar', { name: 'nickname', length: 30 })
     nickname: string;
   
+
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty({
       example:'qwerty1234asdf!@#',
       description:'비밀번호',
