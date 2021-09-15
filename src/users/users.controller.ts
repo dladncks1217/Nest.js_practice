@@ -1,5 +1,5 @@
 // controller에서는 최대한 req,res같은거안쓰는게 좋음.
-import { Controller, Post, Get, Req, Res, Body, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Get, Req, Res, Body, UseInterceptors, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/common/decorators/user.decorator';
 import { UserDTO } from 'src/common/dto/user.dto';
@@ -38,6 +38,7 @@ export class UsersController {
         status:500,
         description:'서버 에러',
     })
+    @UseGuards()
     @ApiOperation({summary:'로그인'})
     @Post('login')
     logIn(@User() user){
