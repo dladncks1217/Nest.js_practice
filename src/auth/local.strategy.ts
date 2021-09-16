@@ -14,7 +14,7 @@ export class LocalStrategy extends PassportStrategy(Strategy){
         if(!user){
             throw new UnauthorizedException(); // 401던져주는 친구. 여기에 걸리면 httpExceptionFilter.ts에 걸림.
         }
-        return done(null, user);
+        return done(null, user); // local-auth.guard  의 req.login 으로 간 뒤 serializeUser로 간다.
     }
 
 }
