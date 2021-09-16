@@ -13,12 +13,15 @@ import { UsersService } from './users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import *as ormconfig from '../ormconfig';
 import { Users } from './entities/Users';
+import { AuthModule } from './auth/auth.module';
 
+// 모든 모듈은 app.module.ts로 꼭 와야한다.
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal:true,
     }), 
+    AuthModule,
     UsersModule, 
     WorkspacesModule, 
     ChannelsModule, 

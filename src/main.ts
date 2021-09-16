@@ -36,7 +36,7 @@ async function bootstrap(){
     }),  
   );
 
-  app.use(passport.initialize())
+  app.use(passport.initialize()) // 얘네 넣어줘야 세션 제대로 동작함.
   app.use(passport.session());
   await app.listen(port);
   console.log(`Listening on port ${port}`);
